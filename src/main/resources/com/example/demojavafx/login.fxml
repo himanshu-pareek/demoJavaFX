@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox alignment="TOP_CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demojavafx.LoginController">
+
+    <padding>
+        <Insets topRightBottomLeft="16.0" />
+    </padding>
+
+    <Label text="Login to FX">
+      <font>
+         <Font name="System Bold" size="24.0" />
+      </font>
+    </Label>
+
+    <TextField fx:id="username" promptText="Username" />
+
+    <PasswordField fx:id="password" promptText="Password" />
+
+    <Button onAction="#login" text="Login" />
+
+    <Text fx:id="loginMessage" visible="false" />
+
+</VBox>
