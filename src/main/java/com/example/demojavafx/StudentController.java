@@ -108,11 +108,47 @@ public class StudentController implements Initializable {
             Logger.getLogger(StudentController.class.getName())
                     .log(Level.SEVERE, null, ex);
         }
+
+        tableStudents.setRowFactory (tv -> {
+            TableRow<Student> row = new TableRow<>();
+            row.setOnMouseClicked (event -> {
+                if (event.getClickCount() == 1 && (!row.isEmpty())) {
+                    int selectedIndex = tableStudents.getSelectionModel().getSelectedIndex();
+                    int selectedId = Integer.parseInt(
+                            String.valueOf(
+                                    tableStudents.getItems().get(selectedIndex).getId()
+                            )
+                    );
+                    textFieldName.setText(tableStudents.getItems().get(selectedIndex).getName());
+                    textFieldMobile.setText(tableStudents.getItems().get(selectedIndex).getMobile());
+                    textFieldCourse.setText(tableStudents.getItems().get(selectedIndex).getCourse());
+                }
+            });
+            return row;
+        });
     }
 
     @FXML
     void delete(ActionEvent event) {
+        int selectedIndex = tableStudents.getSelectionModel().getSelectedIndex();
+        int selectedId = Integer.parseInt(String.valueOf(tableStudents.getItems().get(selectedIndex).getId()));
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM registration WHERE id = ?");
+            preparedStatement.setInt(1, selectedId);
+            preparedStatement.executeUpdate();
 
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Student Registration");
+
+            alert.setHeaderText("Student deleted");
+            alert.setContentText("Student with id " + selectedId + " deleted");
+            alert.showAndWait();
+            table();
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(StudentController.class.getName())
+                    .log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
@@ -141,5 +177,6 @@ public class StudentController implements Initializable {
             ResourceBundle resourceBundle
     ) {
         connect();
+        table();
     }
 }
