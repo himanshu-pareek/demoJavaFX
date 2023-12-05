@@ -153,7 +153,35 @@ public class StudentController implements Initializable {
 
     @FXML
     void update(ActionEvent event) {
+        int selectedIndex = tableStudents.getSelectionModel().getSelectedIndex();
+        int selectedId = Integer.parseInt(
+                String.valueOf(
+                        tableStudents.getItems().get(selectedIndex).getId()
+                )
+        );
 
+        String name = textFieldName.getText();
+        String mobile = textFieldMobile.getText();
+        String course = textFieldCourse.getText();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    "UPDATE registration SET name = ?, mobile = ?, course = ? WHERE id = ?");
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, mobile);
+            preparedStatement.setString(3, course);
+            preparedStatement.setInt(4, selectedId);
+            preparedStatement.executeUpdate();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Student Registration");
+
+            alert.setHeaderText("Student updated.");
+            alert.setContentText("Student updated with id = " + selectedId);
+            alert.showAndWait();
+            table();
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentController.class.getName())
+                    .log(Level.SEVERE, null, ex);
+        }
     }
 
     private void connect() {
