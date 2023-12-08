@@ -1,0 +1,36 @@
+mysql> DESCRIBE registration;
++--------+-------------+------+-----+---------+----------------+
+| Field  | Type        | Null | Key | Default | Extra          |
++--------+-------------+------+-----+---------+----------------+
+| id     | int         | NO   | PRI | NULL    | auto_increment |
+| name   | varchar(50) | YES  |     | NULL    |                |
+| mobile | varchar(10) | YES  |     | NULL    |                |
+| course | varchar(50) | YES  |     | NULL    |                |
++--------+-------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+
+
+
+
+
+Hostname -> localhost
+Port --> 3306
+Database Name --> college
+Username -> dev / root
+Password -> pass / root
+
+url -> jdbc:mysql://localhost:3306/college
+
+Github URL -> https://github.com/himanshu-pareek/demoJavaFX
+
+
+
+
+
+
+
+
+
+
+
